@@ -31,8 +31,15 @@ A comprehensive stock trading web application built on Flask, specifically desig
 ## Getting Started 🚀
 
 ### Prerequisites
-- Python 3.7+
+- Python 3.8+
 - Git
+- Ubuntu 18.04+ (for Linux users)
+
+### Quick Setup Options
+
+📋 **For Ubuntu Users**: Follow our detailed [Ubuntu Setup Guide](UBUNTU_SETUP.md)
+
+📋 **For Other Platforms**: Continue with the installation steps below
 
 ### Installation & Setup
 
