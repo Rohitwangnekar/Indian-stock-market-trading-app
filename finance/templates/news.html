@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Indian Stock Market News</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/styles.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <!-- Navigation Bar -->
+        <nav class="navbar navbar-expand-md navbar-light bg-light border">
+            <div class="logo">
+                <a href="#">STOCK-<span>R</span></a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="navbar-nav mr-auto mt-2">                  
+                    <li class="nav-item"><a class="nav-link" href="/crypto_chart">Charts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/buy">Buy</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/sell">Sell</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/history">History</a></li>     
+                    <li class="nav-item"><a class="nav-link" href="/payment">Prediction</a></li> 
+                    <li class="nav-item"><a class="nav-link" href="/news">News</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact">Contact Us</a></li><!-- Add this line -->
+                </ul>
+                <!-- User Authentication Links -->
+                <ul class="navbar-nav ml-auto mt-2">
+                    <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Flash Messages -->
+    </header>
+
+    <main class="container p-5">
+        <h1>Latest Indian Stock Market News</h1>
+        {% if news %}
+            <ul class="list-group">
+                {% for article in news %}
+                    <li class="list-group-item">
+                        <h5><a href="{{ article.url }}">{{ article.title }}</a></h5>
+                        <p>{{ article.description }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No news available at the moment.</p>
+        {% endif %}
+    </main>
+    <footer class="small text-center text-muted">
+        Data provided for free by <a href="https://newsapi.org/">NewsAPI.org</a>.
+    </footer>
+</body>
+</html>

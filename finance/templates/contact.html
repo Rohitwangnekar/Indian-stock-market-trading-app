@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/styles.css" rel="stylesheet">
+    <link href="/static/style.css" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-md navbar-light bg-light border">
+        <div class="logo">
+            <a href="#">STOCK-<span>R</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar">
+          <ul class="navbar-nav mr-auto mt-2">                  
+            <li class="nav-item"><a class="nav-link" href="/crypto_chart">Charts</a></li>
+            <li class="nav-item"><a class="nav-link" href="/buy">Buy</a></li>
+            <li class="nav-item"><a class="nav-link" href="/sell">Sell</a></li>
+            <li class="nav-item"><a class="nav-link" href="/history">History</a></li>     
+            <li class="nav-item"><a class="nav-link" href="/payment">Prediction</a></li> 
+            <li class="nav-item"><a class="nav-link" href="/news">News</a></li>
+            <li class="nav-item"><a class="nav-link" href="/contact">Contact Us</a></li><!-- Add this line -->
+        </ul>
+            <!-- User Authentication Links -->
+            <ul class="navbar-nav ml-auto mt-2">
+                <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+</header>
+
+<div class="contact_us_6">
+  <div class="responsive-container-block container">
+    <form class="form-box" method="POST" action="/contact">
+      <div class="container-block form-wrapper">
+          <div class="mob-text">
+              <p class="text-blk contactus-head">
+                  Get in Touch
+              </p>
+              <p class="text-blk contactus-subhead">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Felis diam lectus sapien.
+              </p>
+          </div>
+          <div class="responsive-container-block" id="i2cbk">
+              <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-12 wk-ipadp-12" id="i10mt-3">
+                  <p class="text-blk input-title">
+                      FIRST NAME
+                  </p>
+                  <input class="input" id="ijowk-3" name="first_name" placeholder="Please enter first name..." required>
+              </div>
+              <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-12 wk-ipadp-12" id="ip1yp">
+                  <p class="text-blk input-title">
+                      EMAIL
+                  </p>
+                  <input class="input" id="ipmgh-3" name="email" placeholder="Please enter email..." required>
+              </div>
+              <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-12 wk-ipadp-12" id="ih9wi">
+                  <p class="text-blk input-title">
+                      PHONE NUMBER
+                  </p>
+                  <input class="input" id="imgis-3" name="phone_number" placeholder="Please enter phone number..." required>
+              </div>
+              <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-12 wk-ipadp-12" id="i634i-3">
+                  <p class="text-blk input-title">
+                      WHAT DO YOU HAVE IN MIND ?
+                  </p>
+                  <textarea class="textinput" id="i5vyy-3" name="query" placeholder="Please enter query..." required></textarea>
+              </div>
+          </div>
+          <button class="submit-btn" type="submit" id="w-c-s-bgc_p-1-dm-id-2">
+              Submit
+          </button>
+      </div>
+  </form>
+  <div class="responsive-cell-block wk-desk-7 wk-ipadp-12 wk-tab-12 wk-mobile-12" id="i772w">
+      <div class="map-part">
+        <p class="text-blk map-contactus-head" id="w-c-s-fc_p-1-dm-id">
+          Reach us at
+        </p>
+        <p class="text-blk map-contactus-subhead">
+          Corporate Office : 7th Floor, Devika Tower, Nehru Place, New Delhi, India - 110019
+        </p>
+        <div class="social-media-links mob">
+          <a class="social-icon-link" href="https://www.facebook.com/QuantumLearnings/" target="_blank" id="itixd">
+            <img class="link-img image-block" src="https://workik-widget-assets.s3.amazonaws.com/Footer1-83/v1/images/Icon-facebook.png">
+          </a>
+          <a class="social-icon-link" href="#" id="izxvt">
+            <img class="link-img image-block" src="https://workik-widget-assets.s3.amazonaws.com/Footer1-83/v1/images/Icon-google.png">
+          </a>
+          <a class="social-icon-link" href="#" id="izldf-2-2">
+            <img class="link-img image-block" src="https://workik-widget-assets.s3.amazonaws.com/Footer1-83/v1/images/Icon-instagram.png">
+          </a>
+        </div>
+        <div class="map-box container-block"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3504.7473379708963!2d77.2477075752858!3d28.54731317571132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce3cfc3bfb1eb%3A0x131ce5f9536417eb!2sDevika%20Tower!5e0!3m2!1sen!2sin!4v1717924085202!5m2!1sen!2sin" width="800" height="560" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

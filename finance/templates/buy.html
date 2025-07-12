@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/styles.css" rel="stylesheet">
+    <link href="/static/style.css" rel="stylesheet">
+    <style>
+         .widget-container, .form-container {
+          margin: 0px;
+            padding: 0px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Navigation Bar -->
+        <nav class="navbar navbar-expand-md navbar-light bg-light border">
+            <div class="logo">
+                <a href="#">STOCK-<span>R</span></a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <ul class="navbar-nav mr-auto mt-2">                  
+                <li class="nav-item"><a class="nav-link" href="/crypto_chart">Charts</a></li>
+                <li class="nav-item"><a class="nav-link" href="/buy">Buy</a></li>
+                <li class="nav-item"><a class="nav-link" href="/sell">Sell</a></li>
+                <li class="nav-item"><a class="nav-link" href="/history">History</a></li>     
+                <li class="nav-item"><a class="nav-link" href="/payment">Prediction</a></li> 
+                <li class="nav-item"><a class="nav-link" href="/news">News</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contact">Contact Us</a></li><!-- Add this line -->
+            </ul>
+                <!-- User Authentication Links -->
+                <ul class="navbar-nav ml-auto mt-2">
+                    <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Flash Messages -->
+    <div class="tradingview-widget-container">
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+        {
+        "symbols": [
+          {
+            "proName": "BITSTAMP:ETHUSD",
+            "title": "Ethereum"
+          },
+          {
+            "description": "SENSEX",
+            "proName": "BSE:SENSEX"
+          },
+          {
+            "description": "TCS",
+            "proName": "BSE:TCS"
+          },
+          {
+            "description": "TATAMOTORS",
+            "proName": "BSE:TATAMOTORS"
+          },
+          {
+            "description": "ICICIBANK",
+            "proName": "BSE:ICICIBANK"
+          },
+          {
+            "description": "HDFC BANK",
+            "proName": "BSE:HDFCBANK"
+          },
+          {
+            "description": "INFOSYS",
+            "proName": "BSE:INFY"
+          },
+          {
+            "description": "BHARTIARTL",
+            "proName": "BSE:BHARTIARTL"
+          }
+        ],
+        "showSymbolLogo": true,
+        "isTransparent": false,
+        "displayMode": "adaptive",
+        "colorTheme": "light",
+        "locale": "en"
+      }
+        </script>
+      </div>
+    
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <!-- TradingView Widget BEGIN -->
+                <div class="tradingview-widget-container">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <div class="tradingview-widget-copyright">
+                        
+                    </div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-hotlists.js" async>
+                    {
+                      "colorTheme": "light",
+                      "dateRange": "12M",
+                      "exchange": "BSE",
+                      "showChart": true,
+                      "locale": "en",
+                      "largeChartUrl": "",
+                      "isTransparent": false,
+                      "showSymbolLogo": false,
+                      "showFloatingTooltip": false,
+                      "width": "500",
+                      "height": "550",
+                      "plotLineColorGrowing": "rgba(41, 98, 255, 1)",
+                      "plotLineColorFalling": "rgba(41, 98, 255, 1)",
+                      "gridLineColor": "rgba(240, 243, 250, 0)",
+                      "scaleFontColor": "rgba(19, 23, 34, 1)",
+                      "belowLineFillColorGrowing": "rgba(41, 98, 255, 0.12)",
+                      "belowLineFillColorFalling": "rgba(41, 98, 255, 0.12)",
+                      "belowLineFillColorGrowingBottom": "rgba(41, 98, 255, 0)",
+                      "belowLineFillColorFallingBottom": "rgba(41, 98, 255, 0)",
+                      "symbolActiveColor": "rgba(41, 98, 255, 0.12)"
+                    }
+                    </script>
+                </div>
+                <!-- TradingView Widget END -->
+            </div>
+            <div class="col-md-6">
+                <h2>Buy Stocks</h2>
+                <form action="/buy" method="POST">
+                    <div class="form-group">
+                        <input required autocomplete="off" autofocus class="form-control" name="symbol" placeholder="Stock symbol e.g. TCS" type="text">
+                    </div>
+                    <div class="form-group">
+                        <input required autocomplete="off" class="form-control" name="shares" min="1" placeholder="Number of shares" type="number">
+                    </div>
+                    <button class="btn btn-primary" type="submit">Buy</button>
+                </form>
+                <div class="mt-4">
+                    <ul>
+                        {% for stock in trending_stocks %}
+                        <li>{{ stock.stock_symbol }} is at price: {{ stock.stock_price | inr }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

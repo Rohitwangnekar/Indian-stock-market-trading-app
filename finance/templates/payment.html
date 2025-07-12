@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/favicon.ico" rel="icon">
+    <link href="/static/styles.css" rel="stylesheet">
+    <link href="/static/style.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto&display=swap" rel="stylesheet">
+    <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="/static/style1.css" rel="stylesheet">
+    <title>STOCK-R: Pricing</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-light bg-light border">
+            <div class="logo">
+                <a href="#">STOCK-<span>R</span></a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="navbar-nav mr-auto mt-2">                  
+                    <li class="nav-item"><a class="nav-link" href="/crypto_chart">Charts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/buy">Buy</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/sell">Sell</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/history">History</a></li>     
+                    <li class="nav-item"><a class="nav-link" href="/payment">Prediction</a></li> 
+                    <li class="nav-item"><a class="nav-link" href="/news">News</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact">Contact Us</a></li><!-- Add this line -->
+                </ul>
+                <ul class="navbar-nav ml-auto mt-2">
+                    <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="pricing section-bg" data-aos="fade-up">
+        <div class="container">
+            <div class="section-title">
+                <h2>Pricing</h2>
+                <p>Unlock access to Stock-R, your premier ML-powered stock price prediction platform. Harnessing advanced machine learning models and real-time financial data, Stock-R empowers investors with accurate forecasts and data-driven insights. Subscribe now to elevate your investment strategy and gain an edge in the market.
+                </p>
+            </div>
+
+            <div class="row no-gutters">
+                <div class="col-lg-4 box">
+                    <h3>Basic</h3>
+                    <h4>₹0<span>per month</span></h4>
+                    <ul>
+                        <li><i class="bx bx-check"></i> Trade Learning Access</li>
+                        <li><i class="bx bx-check"></i> Graphical Charts Reports</li>
+                        <li><i class="bx bx-check"></i> Portfolio Management</li>                        
+                        <li class="na"><i class="bx bx-x"></i> <span>STOCK-R Prediction App</span></li>
+                        <li class="na"><i class="bx bx-x"></i> <span>Personal Advisors</span></li>
+                    </ul>
+                    <a href="#" class="get-started-btn">Get Started</a>
+                </div>
+
+                <div class="col-lg-4 box featured">
+                    <h3>Standard</h3>
+                    <h4>₹899<span>per month</span></h4>
+                    <ul>
+                        <li><i class="bx bx-check"></i> Trade Learning Access</li>
+                        <li><i class="bx bx-check"></i> Graphical Charts Reports</li>
+                        <li><i class="bx bx-check"></i> Portfolio Management</li>
+                        <li><i class="bx bx-check"></i> STOCK-R Prediction App</li>
+                        <li class="na"><i class="bx bx-x"></i> <span>Personal Advisors</span></li>
+                    </ul>
+                    <a href="#" class="get-started-btn" onclick="payNow(89900)">Pay Now</a>
+                </div>
+
+                <div class="col-lg-4 box">
+                    <h3>Premium</h3>
+                    <h4>₹1299<span>per month</span></h4>
+                    <ul>
+                        <li><i class="bx bx-check"></i> Trade Learning Access</li>
+                        <li><i class="bx bx-check"></i> Graphical Charts Reports</li>
+                        <li><i class="bx bx-check"></i> Portfolio Management</li>
+                        <li><i class="bx bx-check"></i> STOCK-R Prediction App</li>
+                        <li><i class="bx bx-check"></i> Personal Advisors</li>
+                    </ul>
+                    <a href="#" class="get-started-btn" onclick="payNow(129900)">Pay Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function payNow(amount) {
+            fetch('/create_order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({amount: amount})  // Amount in paise
+            })
+            .then(response => response.json())
+            .then(data => {
+                var options = {
+                    "key": "{{ razorpay_key }}", // Ensure this is correctly passed from Flask
+                    "amount": data.amount, // Amount in currency subunits. Default currency is INR.
+                    "currency": "INR",
+                    "name": "STOCK-R",
+                    "description": "Subscription Payment",
+                    "image": "/static/logo.png",
+                    "order_id": data.id, // Razorpay order ID
+                    "handler": function (response){
+                        fetch('/verify_payment', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: new URLSearchParams({
+                                razorpay_payment_id: response.razorpay_payment_id,
+                                razorpay_order_id: response.razorpay_order_id,
+                                razorpay_signature: response.razorpay_signature
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'Payment verified successfully') {
+                                alert('Payment successful and verified!');
+                                window.location.href = "https://stock-r-prediction.streamlit.app/"; // Redirect to Streamlit app
+                            } else {
+                                alert('Payment verification failed');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Payment verification failed', error);
+                        });
+                    },
+                    "prefill": {
+                        "name": "Your Name",
+                        "email": "your.email@example.com",
+                        "contact": "9999999999"
+                    },
+                    "notes": {
+                        "address": "STOCK-R Office"
+                    },
+                    "theme": {
+                        "color": "#F37254"
+                    }
+                };
+                var rzp1 = new Razorpay(options);
+                rzp1.open();
+            })
+            .catch(error => {
+                console.error('Error creating Razorpay order', error);
+            });
+        }
+    </script>
+</body>
+</html>

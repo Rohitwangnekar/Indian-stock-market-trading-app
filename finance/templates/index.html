@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link href="/static/favicon.ico" rel="icon">
+
+    <!-- Custom Stylesheet -->
+    <link href="/static/styles.css" rel="stylesheet">
+    
+    <link href="/static/style.css" rel="stylesheet">
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <style>
+      .col-md-8 {
+          width: 100%;
+          margin-right: 190px;
+          margin-left: 190px;
+      }
+
+      .table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-bottom: 20px;
+      }
+
+      .table th, .table td {
+          border: 1px solid #dddddd;
+          padding: 8px;
+          text-align: left;
+      }
+
+      .table th {
+          background-color: #0ea2bd;
+          color: white;
+      }
+
+      .table tfoot td {
+          text-align: right;
+      }
+  </style>
+
+
+
+
+
+    
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/static/style1.css" rel="stylesheet">
+
+    <title>STOCK-R: Portfolio</title>
+</head>
+<body>
+    <header>
+        <!-- Navigation Bar -->
+        <nav class="navbar navbar-expand-md navbar-light bg-light border">
+            <div class="logo">
+                <a href="#">STOCK-<span>R</span></a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <ul class="navbar-nav mr-auto mt-2">                  
+                <li class="nav-item"><a class="nav-link" href="/crypto_chart">Charts</a></li>
+                <li class="nav-item"><a class="nav-link" href="/buy">Buy</a></li>
+                <li class="nav-item"><a class="nav-link" href="/sell">Sell</a></li>
+                <li class="nav-item"><a class="nav-link" href="/history">History</a></li>     
+                <li class="nav-item"><a class="nav-link" href="/payment">Prediction</a></li> 
+                <li class="nav-item"><a class="nav-link" href="/news">News</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contact">Contact Us</a></li><!-- Add this line -->
+            </ul>
+                <!-- User Authentication Links -->
+                <ul class="navbar-nav ml-auto mt-2">
+                    <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
+                </ul>
+            </div>
+        </nav><!-- TradingView Widget BEGIN -->
+        <div class="tradingview-widget-container">
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+          {
+          "symbols": [
+            {
+              "description": "SENSEX",
+              "proName": "BSE:SENSEX"
+            },
+            {
+              "description": "TCS",
+              "proName": "BSE:TCS"
+            },
+            {
+              "description": "TATAMOTORS",
+              "proName": "BSE:TATAMOTORS"
+            },
+            {
+              "description": "ICICIBANK",
+              "proName": "BSE:ICICIBANK"
+            },
+            {
+              "description": "HDFC BANK",
+              "proName": "BSE:HDFCBANK"
+            },
+            {
+              "description": "INFOSYS",
+              "proName": "BSE:INFY"
+            },
+            {
+              "description": "BHARTIARTL",
+              "proName": "BSE:BHARTIARTL"
+            }
+          ],
+          "showSymbolLogo": true,
+          "isTransparent": true,
+          "displayMode": "adaptive",
+          "colorTheme": "light",
+          "locale": "en"
+        }
+          </script>
+        </div>
+        <!-- TradingView Widget END -->
+    </header>
+    <section id="hero" class="hero section">
+
+      <div class="container d-flex flex-column justify-content-center align-items-center text-center position-relative" data-aos="zoom-out">
+        <img src="/static/6256458.jpg" class="img-fluid animated" alt="">
+        <h1>Welcome to <span>STOCK-R</span></h1>
+      </div>
+
+    </section><!-- /Hero Section -->
+
+
+  
+    <section class="features">
+        <div class="container">
+  
+  
+    <div class="row" data-aos="fade-up">
+        <div class="col-md-5 order-1 order-md-2">
+          <img src="/static/features-2.svg" class="img-fluid" alt="">
+        </div>
+        <div class="col-md-7 pt-5 order-2 order-md-1">
+          <h3>Start your trading journey with us</h3>
+          <p class="fst-italic">
+            Experience the comprehensive capabilities of STOCK-R, where we offer cutting-edge portfolio management tools, precise stock market predictions, and the latest updates on the Indian stock market.
+          </p>
+          <p>
+            Explore our interactive charts, reliable forecasts, and personalized insights tailored to enhance your financial strategy. Join us today and stay ahead in the world of stock trading.
+          </p>
+        </div>
+      </div>
+    </div>
+</section><!-- End Features Section -->
+
+
+<!-- ======= Our Services Section ======= -->
+<section class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Our Services</h2>
+      </div>
+
+    </div>
+  </section><!-- End Our Services Section -->
+
+        <!-- ======= Services Section ======= -->
+        <section class="services">
+          <div class="container">
+    
+            <div class="row">
+              <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up">
+                
+                
+
+                <div class="icon-box icon-box-pink">
+                  <div class="icon"><i class="bx bxl-dribbble"></i></div>
+                  <h4 class="title"><a href="">ACCURATE PREDICTIONS</a></h4>
+                  <p class="description">We provide accurate stock Predictions</p>
+                </div>
+              </div>
+    
+              <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                <div class="icon-box icon-box-cyan">
+                  <div class="icon"><i class="bx bx-file"></i></div>
+                  <h4 class="title"><a href="">EARN MONEY</a></h4>
+                  <p class="description">Earn money by investing in right place</p>
+                </div>
+              </div>
+    
+              <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+                <div class="icon-box icon-box-green">
+                  <div class="icon"><i class="bx bx-tachometer"></i></div>
+                  <h4 class="title"><a href="">REAL TIME STOCKS</a></h4>
+                  <p class="description">Provide real time stock quotes for the companies</p>
+                </div>
+              </div>
+    
+              <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+                <div class="icon-box icon-box-blue">
+                  <div class="icon"><i class="bx bx-world"></i></div>
+                  <h4 class="title"><a href="">STOCK MARKET NEWS</a></h4>
+                  <p class="description">Provide latest Indian Stock Market News</p>
+                </div>
+              </div>
+    
+            </div>
+    
+          </div>
+        </section><!-- End Services Section -->
+    <!-- TradingView Widget BEGIN -->
+  <div class="container">
+
+    <div class="d-flex justify-content-between align-items-center">
+      <h2>Portfolio</h2>
+    </div>
+
+  </div>
+<div class="col-md-8">
+  <table class="table table-responsive-sm">
+      <thead>
+      <tr>
+          <th>Company Name</th>
+          <th>Company Symbol</th>
+          <th>Shares</th>
+          <th>Current Price</th>
+          <th>Total</th>
+      </tr>
+      </thead>
+      {% with money = namespace(total=0.00) %}
+      <tbody>
+      {% for stock in portfolio %}
+      <tr>
+          <td>{{ stock.name }}</td>
+          <td>{{ stock.symbol }}</td>
+          <td>{{ stock.shares }}</td>
+          {% set price = (stock.symbol | lookup)["price"] %}
+          <td>{{ price | inr }}</td>
+          <td>{{ (price * stock.shares) | inr }}</td>
+          {% set money.total = money.total + (price * stock.shares) %}
+      </tr>
+      {% endfor %}
+      <tr>
+          <td colspan="4">YOUR CASH</td>
+          <td>{{ cash | inr }}</td>
+      </tr>
+      </tbody>
+      <tfoot>
+      <tr>
+          <td colspan="4" style="text-align: right;"><b>Grand Total</b></td>
+          {% set money.total = money.total + cash %}
+          <td><b>{{ money.total | inr }}</b></td>
+      </tr>
+      </tfoot>
+      {% endwith %}
+  </table>
+</div>    
+
+
+
+<!-- TradingView Widget BEGIN -->
+<div class="news1">
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+{
+"feedMode": "all_symbols",
+"isTransparent": false,
+"displayMode": "regular",
+"width": "1100",
+"height": "550",
+"colorTheme": "light",
+"locale": "en"
+}
+</script>
+</div>
+
+
+
+    <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
+    <footer>
+        <div class="container pt-5 border-bottom">
+            <div class="row">
+                <div class="footer-left">
+                    <a href="/static/logo.jpg" class="href"></a>
+                    <h3>Mentorr<span>Buddy</span></h3>
+                </div>
+                <div class="col-md-3 col-sm-6 col-6 mb-3 p-0 float-left">
+                    <h5 class="mb-4 font-weight-bold text-uppercase">Company</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item bg-transparent border-0 p-0 mb-2"><a href="../about-naologic.html">About</a></li>
+                        <li class="list-group-item bg-transparent border-0 p-0 mb-2"><a href="https://blog.naologic.com">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6 col-6 mb-3 p-0 float-left">
+                    <h5 class="mb-4 font-weight-bold text-uppercase">Connect</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item bg-transparent border-0 p-0 mb-2">
+                            <a href="https://www.facebook.com/QuantumLearnings/" target="_blank"><i class="fa fa-facebook"> Facebook</i></a>
+                        </li>
+                        <li class="list-group-item bg-transparent border-0 p-0 mb-2">
+                            <a href="https://www.linkedin.com/company/quantum-learnings" target="_blank"><i class="fa fa-linkedin"> LinkedIn</i></a>
+                        </li>
+                        <li class="list-group-item bg-transparent border-0 p-0 mb-2">
+                            <a href="https://www.instagram.com/mentorrbuddy/?hl=en" target="_blank"><i class="fa fa-instagram"> Instagram</i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="py-4 d-flex justify-content-center align-items-center">
+                    <a class="mr-4" href="../privacy.html">Privacy & terms</a>
+                    <a href="../sitemap.xml">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        async function fetchLiveStockValues() {
+            try {
+                const response = await fetch('/api/stock-values');
+                const data = await response.json();
+
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+
+                const sensex = data.sensex;
+                const nifty = data.nifty;
+                const dowJones = data.dow_jones;
+
+                const stockValuesElement = document.getElementById('stock-values');
+                stockValuesElement.innerHTML = `
+                    Sensex: ₹${sensex} |
+                    Nifty: ₹${nifty} |
+                    Dow Jones: $${dowJones}
+                `;
+            } catch (error) {
+                console.error('Error fetching live stock values:', error);
+                document.getElementById('stock-values').innerHTML = `Error fetching live stock values: ${error.message}`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            fetchLiveStockValues();
+            setInterval(fetchLiveStockValues, 60000); // Refresh every minute
+        });
+    </script>
+
+    <style>
+        .marquee {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .marquee span {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 15s linear infinite;
+        }
+        @keyframes marquee {
+            from { transform: translate(0, 0); }
+            to { transform: translate(-100%, 0); }
+        }
+    </style>
+</body>
+</html>
