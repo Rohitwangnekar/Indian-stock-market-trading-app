@@ -21,6 +21,6 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL") or ("sqlite:///" + os.path.join(basedir, "finance.db"))
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-    # Razorpay configuration
-    RAZORPAY_KEY_ID = 'rzp_test_A64tNiZma0xQmT'
-    RAZORPAY_KEY_SECRET = 'VlB4mVOMILl3sGxgiFrOhsQ6'
+    # Razorpay configuration (Get from environment variables for security)
+    RAZORPAY_KEY_ID = os.environ.get('RAZORPAY_KEY_ID') or 'your_razorpay_key_id_here'
+    RAZORPAY_KEY_SECRET = os.environ.get('RAZORPAY_KEY_SECRET') or 'your_razorpay_key_secret_here'

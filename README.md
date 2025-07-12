@@ -30,10 +30,64 @@ A comprehensive stock trading web application built on Flask, specifically desig
 
 ## Getting Started 🚀
 
-1. Clone the repository
-2. Install dependencies: `pip install -r requirements.txt`
-3. Set up your Indian stock market API credentials
-4. Run the application: `python application.py`
+### Prerequisites
+- Python 3.7+
+- Git
+
+### Installation & Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/Indian-stock-market-trading-app.git
+   cd Indian-stock-market-trading-app
+   ```
+
+2. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **⚠️ IMPORTANT: Set up API credentials**
+   
+   **DO NOT USE THE APP WITHOUT SETTING UP YOUR OWN API KEYS**
+   
+   a. Copy the sample environment file:
+   ```bash
+   cp sample.env .env
+   ```
+   
+   b. Edit `.env` file and replace ALL placeholder values with your own credentials:
+   
+   - **Alpha Vantage API Key** (Required for stock data):
+     - Get free API key: https://www.alphavantage.co/support/#api-key
+     - Replace: `your_alpha_vantage_api_key_here`
+   
+   - **News API Key** (Required for market news):
+     - Get free API key: https://newsapi.org/register
+     - Replace: `your_news_api_key_here`
+   
+   - **Razorpay Credentials** (Required for payments):
+     - Get credentials: https://dashboard.razorpay.com/app/keys
+     - Replace: `your_razorpay_key_id_here` and `your_razorpay_key_secret_here`
+   
+   - **Secret Key** (Required for security):
+     - Generate a strong secret key (32+ characters)
+     - Replace: `your_super_secret_key_here_generate_a_new_one`
+
+4. **Run the application**
+   ```bash
+   python application.py
+   ```
+
+5. **Access the app**
+   - Open your browser and go to `http://localhost:5000`
+
+## Security Notice 🔒
+
+- **NEVER commit your `.env` file to version control**
+- **NEVER share your API keys publicly**
+- **Always use environment variables for sensitive data**
+- The `sample.env` file contains only placeholder values - you MUST replace them with your own credentials
 
 ## Target Markets 📊
 
