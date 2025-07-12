@@ -39,12 +39,88 @@
         </nav>
     </header>
 
-    
+    <!-- Flash Messages -->
+    <div class="tradingview-widget-container">
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+        {
+        "symbols": [
+          {
+            "proName": "BITSTAMP:ETHUSD",
+            "title": "Ethereum"
+          },
+          {
+            "description": "SENSEX",
+            "proName": "BSE:SENSEX"
+          },
+          {
+            "description": "TCS",
+            "proName": "BSE:TCS"
+          },
+          {
+            "description": "TATAMOTORS",
+            "proName": "BSE:TATAMOTORS"
+          },
+          {
+            "description": "ICICIBANK",
+            "proName": "BSE:ICICIBANK"
+          },
+          {
+            "description": "HDFC BANK",
+            "proName": "BSE:HDFCBANK"
+          },
+          {
+            "description": "INFOSYS",
+            "proName": "BSE:INFY"
+          },
+          {
+            "description": "BHARTIARTL",
+            "proName": "BSE:BHARTIARTL"
+          }
+        ],
+        "showSymbolLogo": true,
+        "isTransparent": false,
+        "displayMode": "adaptive",
+        "colorTheme": "light",
+        "locale": "en"
+      }
+        </script>
+      </div>
     
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-6">
-                
+                <!-- TradingView Widget BEGIN -->
+                <div class="tradingview-widget-container">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <div class="tradingview-widget-copyright">
+                        
+                    </div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-hotlists.js" async>
+                    {
+                      "colorTheme": "light",
+                      "dateRange": "12M",
+                      "exchange": "BSE",
+                      "showChart": true,
+                      "locale": "en",
+                      "largeChartUrl": "",
+                      "isTransparent": false,
+                      "showSymbolLogo": false,
+                      "showFloatingTooltip": false,
+                      "width": "500",
+                      "height": "550",
+                      "plotLineColorGrowing": "rgba(41, 98, 255, 1)",
+                      "plotLineColorFalling": "rgba(41, 98, 255, 1)",
+                      "gridLineColor": "rgba(240, 243, 250, 0)",
+                      "scaleFontColor": "rgba(19, 23, 34, 1)",
+                      "belowLineFillColorGrowing": "rgba(41, 98, 255, 0.12)",
+                      "belowLineFillColorFalling": "rgba(41, 98, 255, 0.12)",
+                      "belowLineFillColorGrowingBottom": "rgba(41, 98, 255, 0)",
+                      "belowLineFillColorFallingBottom": "rgba(41, 98, 255, 0)",
+                      "symbolActiveColor": "rgba(41, 98, 255, 0.12)"
+                    }
+                    </script>
+                </div>
+                <!-- TradingView Widget END -->
             </div>
             <div class="col-md-6">
                 <h2>Buy Stocks</h2>
