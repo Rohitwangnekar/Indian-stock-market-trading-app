@@ -5,73 +5,598 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Favicon -->
     <link href="/static/favicon.ico" rel="icon">
 
-    <!-- Custom Stylesheet -->
+    <!-- Custom Stylesheets -->
     <link href="/static/styles.css" rel="stylesheet">
-    
-    <link href="/static/style.css" rel="stylesheet">
-
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link href="/static/modern-styles.css" rel="stylesheet">
 
     <title>STOCK-R: {% block title %}{% endblock %}</title>
 </head>
-<body>
-    <header>
-        <!-- Navigation Bar -->
-        <nav class="navbar navbar-expand-md navbar-light bg-light border">
-            <div class="logo">
-                <a href="#">STOCK-<span>R</span></a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar">
-                <ul class="navbar-nav mr-auto mt-2">                  
-                    <li class="nav-item"><a class="nav-link" href="/crypto_chart">Charts</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/buy">Buy</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/sell">Sell</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/history">History</a></li>     
-                    <li class="nav-item"><a class="nav-link" href="/payment">Prediction</a></li> 
-                    <li class="nav-item"><a class="nav-link" href="/news">News</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/contact">Contact Us</a></li><!-- Add this line -->
-                </ul>
-                <!-- User Authentication Links -->
-                {% if session.user_id %}
-                <ul class="navbar-nav ml-auto mt-2">
-                    <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
-                </ul>
-                {% else %}
-                <ul class="navbar-nav ml-auto mt-2">
-                    <li class="nav-item"><a class="nav-link" href="/register">Register (It's free!)</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
-                </ul>
-                {% endif %}
-            </div>
-        </nav>
-
-        <!-- Flash Messages -->
-        {% with flash_message = get_flashed_messages(with_categories=true) %}
-        {% if flash_message %}
-        <div class="alert alert-{{ flash_message[0][0] }} border text-center alert-dismissible" role="alert">
-            {{ flash_message[0][1] }}
-            <button class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+<body class="modern-layout">
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="loading-spinner">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
         </div>
-        {% endif %}
-        {% endwith %}
-    </header>
+    </div>
 
-    <main class="container p-5">
-        <!-- Main Content -->
+    <!-- Top Bar -->
+    <div class="top-bar bg-dark text-white py-1">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <div class="stock-ticker">
+                        <i class="fas fa-chart-line me-2"></i>
+                        <span class="ticker-item">SENSEX: <span class="text-success">₹75,123.45</span></span>
+                        <span class="ticker-item">NIFTY: <span class="text-success">₹22,789.12</span></span>
+                        <span class="ticker-item">USD/INR: <span class="text-info">₹83.25</span></span>
+                    </div>
+                </div>
+                <div class="col-md-4 text-end">
+                    <span class="small">
+                        <i class="fas fa-clock me-1"></i>
+                        <span id="current-time"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modern Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light modern-navbar">
+        <div class="container-fluid">
+            <!-- Brand Logo -->
+            <a class="navbar-brand modern-brand" href="/">
+                <div class="brand-container">
+                    <i class="fas fa-chart-line brand-icon"></i>
+                    <span class="brand-text">STOCK-<span class="brand-accent">R</span></span>
+                </div>
+            </a>
+
+            <!-- Mobile Toggle -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navigation Content -->
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <!-- Main Navigation -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {% if session.user_id %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/crypto_chart">
+                            <i class="fas fa-chart-area"></i>
+                            <span>Charts</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span>Trading</span>
+                        </a>
+                        <ul class="dropdown-menu modern-dropdown">
+                            <li><a class="dropdown-item" href="/buy"><i class="fas fa-plus-circle text-success"></i> Buy Stocks</a></li>
+                            <li><a class="dropdown-item" href="/sell"><i class="fas fa-minus-circle text-danger"></i> Sell Stocks</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/history"><i class="fas fa-history"></i> Transaction History</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/payment">
+                            <i class="fas fa-crystal-ball"></i>
+                            <span>Predictions</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/news">
+                            <i class="fas fa-newspaper"></i>
+                            <span>News</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">
+                            <i class="fas fa-envelope"></i>
+                            <span>Contact</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+
+                <!-- User Authentication -->
+                <ul class="navbar-nav">
+                    {% if session.user_id %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle user-dropdown" href="#" role="button" data-bs-toggle="dropdown">
+                            <div class="user-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <span class="d-none d-lg-inline">Account</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end modern-dropdown">
+                            <li class="dropdown-header">
+                                <i class="fas fa-user-circle"></i>
+                                Welcome back!
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/profile"><i class="fas fa-user-edit"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="/settings"><i class="fas fa-cog"></i> Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>Login</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary nav-cta" href="/register">
+                            <i class="fas fa-user-plus"></i>
+                            <span>Sign Up Free</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-container">
+        {% for category, message in messages %}
+        <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show modern-alert" role="alert">
+            <div class="alert-content">
+                {% if category == 'success' %}
+                <i class="fas fa-check-circle"></i>
+                {% elif category == 'danger' or category == 'error' %}
+                <i class="fas fa-exclamation-triangle"></i>
+                {% elif category == 'warning' %}
+                <i class="fas fa-exclamation-circle"></i>
+                {% else %}
+                <i class="fas fa-info-circle"></i>
+                {% endif %}
+                <span>{{ message }}</span>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <!-- Main Content -->
+    <main class="main-content container">
+        
         {% block main %}{% endblock %}
     </main>
 
-   
+    <!-- Footer -->
+    <footer class="modern-footer bg-dark text-white mt-5">
+        <div class="container">
+            <div class="row py-5">
+                <div class="col-lg-4 mb-4">
+                    <div class="footer-brand">
+                        <h5><i class="fas fa-chart-line me-2"></i>STOCK-R</h5>
+                        <p class="text-muted">Your trusted partner in Indian stock market trading. Start your investment journey with confidence.</p>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Trading</h6>
+                    <ul class="footer-links">
+                        <li><a href="/buy">Buy Stocks</a></li>
+                        <li><a href="/sell">Sell Stocks</a></li>
+                        <li><a href="/history">History</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Tools</h6>
+                    <ul class="footer-links">
+                        <li><a href="/crypto_chart">Charts</a></li>
+                        <li><a href="/payment">Predictions</a></li>
+                        <li><a href="/news">News</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Support</h6>
+                    <ul class="footer-links">
+                        <li><a href="/contact">Contact Us</a></li>
+                        <li><a href="/help">Help Center</a></li>
+                        <li><a href="/faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Legal</h6>
+                    <ul class="footer-links">
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/terms">Terms of Service</a></li>
+                        <li><a href="/disclaimer">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="border-secondary">
+            <div class="row py-3">
+                <div class="col-md-8">
+                    <p class="mb-0 text-muted">&copy; 2024 STOCK-R. All rights reserved.</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <p class="mb-0 text-muted">Made with <i class="fas fa-heart text-danger"></i> in India</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Loading spinner
+        window.addEventListener('load', function() {
+            document.getElementById('loading-spinner').style.display = 'none';
+        });
+
+        // Current time display
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-IN', { 
+                timeZone: 'Asia/Kolkata',
+                hour12: true 
+            });
+            document.getElementById('current-time').textContent = timeString;
+        }
+        
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // Active nav link
+        const currentLocation = window.location.pathname;
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            if (link.getAttribute('href') === currentLocation) {
+                link.classList.add('active');
+            }
+        });
+
+        // Smooth scrolling for hash links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+            --dark-color: #1a1a2e;
+            --light-color: #f8f9fa;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background: linear-gradient(135deg, var(--dark-color) 0%, #16213e 100%) !important;
+            font-size: 0.85rem;
+        }
+
+        .stock-ticker {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .ticker-item {
+            font-weight: 500;
+        }
+
+        /* Modern Navbar */
+        .modern-navbar {
+            background: rgba(255,255,255,0.95) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--box-shadow);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .brand-icon {
+            background: linear-gradient(135deg, #0ea2bd, #0a7c94);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 8px;
+            font-size: 1.2rem;
+        }
+
+        .brand-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark-color);
+        }
+
+        .brand-accent {
+            background: linear-gradient(135deg, #0ea2bd, #0a7c94);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-link {
+            color: var(--dark-color) !important;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.75rem 1rem !important;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link:hover {
+            background: rgba(14, 162, 189, 0.1);
+            color: #0ea2bd;
+            transform: translateY(-1px);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(135deg, #0ea2bd, #0a7c94);
+            color: white !important;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, #0ea2bd, #0a7c94) !important;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(14, 162, 189, 0.3);
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #0ea2bd, #0a7c94);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .user-dropdown {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .modern-dropdown {
+            border: none;
+            box-shadow: var(--box-shadow);
+            border-radius: var(--border-radius);
+            padding: 0.5rem 0;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            transition: var(--transition);
+        }
+
+        .dropdown-item:hover {
+            background: rgba(14, 162, 189, 0.1);
+        }
+
+        /* Flash Messages */
+        .flash-container {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 1050;
+            max-width: 400px;
+        }
+
+        .modern-alert {
+            border: none;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 1rem;
+        }
+
+        .alert-content {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            min-height: calc(100vh - 300px);
+            padding: 2rem 0;
+        }
+
+        /* Footer */
+        .modern-footer {
+            background: linear-gradient(135deg, var(--dark-color) 0%, #16213e 100%) !important;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: #0ea2bd;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .stock-ticker {
+                flex-direction: column;
+                gap: 0.5rem;
+                font-size: 0.75rem;
+            }
+
+            .brand-text {
+                font-size: 1.2rem;
+            }
+
+            .nav-link span {
+                display: none;
+            }
+
+            .flash-container {
+                position: relative;
+                top: auto;
+                right: auto;
+                max-width: 100%;
+                margin: 1rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-color);
+        }
+    </style>
 </body>
 </html>
