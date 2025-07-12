@@ -1,0 +1,319 @@
+{% extends "base_page.html" %}
+
+{% block page_title %}Dashboard{% endblock %}
+{% block page_icon %}<i class="fas fa-chart-line"></i>{% endblock %}
+{% block page_subtitle %}Welcome to your STOCK-R trading dashboard{% endblock %}
+
+{% block page_actions %}
+<div class="d-flex gap-2">
+    <a href="/buy" class="page-action-btn">
+        <i class="fas fa-plus-circle"></i>
+        <span>Buy Stocks</span>
+    </a>
+    <a href="/sell" class="page-action-btn">
+        <i class="fas fa-minus-circle"></i>
+        <span>Sell Stocks</span>
+    </a>
+</div>
+{% endblock %}
+
+{% block page_content %}
+<!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container mb-4">
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+  {
+  "symbols": [
+    {
+      "description": "SENSEX",
+      "proName": "BSE:SENSEX"
+    },
+    {
+      "description": "TCS",
+      "proName": "BSE:TCS"
+    },
+    {
+      "description": "TATAMOTORS",
+      "proName": "BSE:TATAMOTORS"
+    },
+    {
+      "description": "ICICIBANK",
+      "proName": "BSE:ICICIBANK"
+    },
+    {
+      "description": "HDFC BANK",
+      "proName": "BSE:HDFCBANK"
+    },
+    {
+      "description": "INFOSYS",
+      "proName": "BSE:INFY"
+    },
+    {
+      "description": "BHARTIARTL",
+      "proName": "BSE:BHARTIARTL"
+    }
+  ],
+  "showSymbolLogo": true,
+  "isTransparent": true,
+  "displayMode": "adaptive",
+  "colorTheme": "light",
+  "locale": "en"
+}
+  </script>
+</div>
+<!-- TradingView Widget END -->
+<!-- Stats Overview -->
+<div class="stats-grid mb-5">
+    <div class="stat-card-modern">
+        <div class="stat-icon-modern">
+            <i class="fas fa-wallet"></i>
+        </div>
+        <div class="stat-value-modern">{{ cash | inr }}</div>
+        <div class="stat-label-modern">Available Cash</div>
+    </div>
+    
+    <div class="stat-card-modern">
+        <div class="stat-icon-modern">
+            <i class="fas fa-chart-area"></i>
+        </div>
+        <div class="stat-value-modern">
+            {% with total = namespace(value=0) %}
+                {% for stock in portfolio %}
+                    {% set price = (stock.symbol | lookup)["price"] %}
+                    {% set total.value = total.value + (price * stock.shares) %}
+                {% endfor %}
+                {{ total.value | inr }}
+            {% endwith %}
+        </div>
+        <div class="stat-label-modern">Portfolio Value</div>
+    </div>
+    
+    <div class="stat-card-modern">
+        <div class="stat-icon-modern">
+            <i class="fas fa-building"></i>
+        </div>
+        <div class="stat-value-modern">{{ portfolio | length }}</div>
+        <div class="stat-label-modern">Holdings</div>
+    </div>
+    
+    <div class="stat-card-modern">
+        <div class="stat-icon-modern">
+            <i class="fas fa-coins"></i>
+        </div>
+        <div class="stat-value-modern">
+            {% with total = namespace(value=0) %}
+                {% for stock in portfolio %}
+                    {% set price = (stock.symbol | lookup)["price"] %}
+                    {% set total.value = total.value + (price * stock.shares) %}
+                {% endfor %}
+                {% set total.value = total.value + cash %}
+                {{ total.value | inr }}
+            {% endwith %}
+        </div>
+        <div class="stat-label-modern">Total Worth</div>
+    </div>
+</div>
+
+<!-- Portfolio Table -->
+<div class="content-card">
+    <div class="content-card-header">
+        <h3 class="content-card-title">
+            <i class="fas fa-briefcase"></i>
+            Your Portfolio
+        </h3>
+        <div class="d-flex gap-2">
+            <a href="/buy" class="btn-modern btn-primary-modern btn-sm">
+                <i class="fas fa-plus"></i>
+                <span>Buy More</span>
+            </a>
+            <a href="/history" class="btn-modern btn-outline-modern btn-sm">
+                <i class="fas fa-history"></i>
+                <span>History</span>
+            </a>
+        </div>
+    </div>
+    
+    <div class="content-card-body">
+        {% if portfolio %}
+        <div class="table-responsive">
+            <table class="table-modern">
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Symbol</th>
+                        <th>Shares</th>
+                        <th>Current Price</th>
+                        <th>Market Value</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stock in portfolio %}
+                    {% set price = (stock.symbol | lookup)["price"] %}
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="company-icon me-3">
+                                    {{ stock.symbol[0] }}
+                                </div>
+                                <div>
+                                    <div class="fw-bold">{{ stock.name }}</div>
+                                    <small class="text-muted">{{ stock.symbol }}</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge badge-primary">{{ stock.symbol }}</span>
+                        </td>
+                        <td>
+                            <span class="shares-count">{{ stock.shares }}</span>
+                        </td>
+                        <td>
+                            <span class="price-current">{{ price | inr }}</span>
+                        </td>
+                        <td>
+                            <span class="market-value fw-bold">{{ (price * stock.shares) | inr }}</span>
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <a href="/sell?symbol={{ stock.symbol }}" class="btn btn-sm btn-outline-danger">
+                                    <i class="fas fa-minus"></i>
+                                </a>
+                                <a href="/buy?symbol={{ stock.symbol }}" class="btn btn-sm btn-outline-success">
+                                    <i class="fas fa-plus"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="empty-state text-center py-5">
+            <i class="fas fa-chart-line fa-4x text-muted mb-3"></i>
+            <h4>No Investments Yet</h4>
+            <p class="text-muted mb-4">Start building your portfolio by buying your first stock.</p>
+            <a href="/buy" class="btn-modern btn-primary-modern">
+                <i class="fas fa-plus-circle"></i>
+                <span>Start Investing</span>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% include '_recent_transactions.html' %}
+
+<!-- Market News Widget -->
+<div class="content-card">
+    <div class="content-card-header">
+        <h3 class="content-card-title">
+            <i class="fas fa-newspaper"></i>
+            Market News
+        </h3>
+        <a href="/news" class="btn-modern btn-outline-modern btn-sm">
+            <span>View All</span>
+            <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+    
+    <div class="content-card-body">
+        <div class="news-widget">
+            <p class="text-muted">
+                <i class="fas fa-info-circle me-2"></i>
+                Latest market news and updates will appear here.
+            </p>
+        </div>
+    </div>
+</div>
+
+<style>
+.company-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #0ea2bd 0%, #0a7c94 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.badge-primary {
+    background: linear-gradient(135deg, #0ea2bd 0%, #0a7c94 100%);
+    color: white;
+    padding: 0.35rem 0.65rem;
+    border-radius: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.shares-count {
+    font-weight: 600;
+    color: var(--gray-700);
+}
+
+.price-current {
+    font-weight: 600;
+    color: #0ea2bd;
+}
+
+.market-value {
+    color: var(--success-color);
+}
+
+.btn-group .btn {
+    border-radius: 0.375rem;
+    margin: 0 2px;
+}
+
+.empty-state {
+    padding: 3rem 1rem;
+}
+
+.empty-state i {
+    color: #0ea2bd;
+    opacity: 0.5;
+}
+
+.news-widget {
+    background: rgba(14, 162, 189, 0.05);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    border-left: 4px solid #0ea2bd;
+}
+
+.d-flex.gap-2 > * {
+    margin-right: 0.5rem;
+}
+
+.d-flex.gap-2 > *:last-child {
+    margin-right: 0;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+    
+    .company-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+    
+    .btn-group {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+}
+</style>
+{% endblock %}
