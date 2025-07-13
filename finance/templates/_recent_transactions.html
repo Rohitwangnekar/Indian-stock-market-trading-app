@@ -1,0 +1,65 @@
+
+<!-- Recent Transactions -->
+<div class="content-card">
+    <div class="content-card-header">
+        <h3 class="content-card-title">
+            <i class="fas fa-history"></i>
+            Recent Transactions
+        </h3>
+        <a href="/history" class="btn-modern btn-outline-modern btn-sm">
+            <span>View All</span>
+            <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+    
+    <div class="content-card-body">
+        {% if transactions %}
+        <div class="table-responsive">
+            <table class="table-modern">
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Type</th>
+                        <th>Shares</th>
+                        <th>Price</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for trans in transactions %}
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="company-icon-small me-2">
+                                    {{ trans.company_symbol[0] }}
+                                </div>
+                                <div>
+                                    <div class="fw-semibold">{{ trans.company_name }}</div>
+                                    <small class="text-muted">{{ trans.company_symbol }}</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            {% if trans.trans_type == 'purchase' %}
+                                <span class="badge badge-success">Buy</span>
+                            {% else %}
+                                <span class="badge badge-danger">Sell</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ trans.shares }}</td>
+                        <td>{{ trans.price | inr }}</td>
+                        <td>{{ trans.transacted_at.strftime('%d %b %Y') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="empty-state text-center py-4">
+            <i class="fas fa-exchange-alt fa-3x text-muted mb-3"></i>
+            <h5>No recent transactions</h5>
+            <p class="text-muted">Your recent trades will appear here.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>

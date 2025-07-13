@@ -1,0 +1,63 @@
+{% extends "base_page.html" %}
+
+{% block page_title %}User Profile{% endblock %}
+{% block page_icon %}<i class="fas fa-user"></i>{% endblock %}
+{% block page_subtitle %}View and manage your profile information{% endblock %}
+
+{% block page_content %}
+<div class="row">
+    <div class="col-lg-4">
+        <div class="content-card">
+            <div class="content-card-body text-center">
+                <img src="/static/rohit.png" alt="User Avatar" class="img-fluid rounded-circle mb-3" width="150">
+                <h4 class="mb-0">{{ user.username }}</h4>
+                <p class="text-muted">Investor</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="content-card">
+            <div class="content-card-header">
+                <h3 class="content-card-title">Profile Information</h3>
+            </div>
+            <div class="content-card-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group-modern">
+                                <label class="form-label-modern">Username</label>
+                                <input type="text" class="form-control-modern" value="{{ user.username }}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-modern">
+                                <label class="form-label-modern">Email Address</label>
+                                <input type="email" class="form-control-modern" value="{{ user.username }}@example.com" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group-modern">
+                                <label class="form-label-modern">First Name</label>
+                                <input type="text" class="form-control-modern" value="Rohit">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-modern">
+                                <label class="form-label-modern">Last Name</label>
+                                <input type="text" class="form-control-modern" value="Sharma">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group-modern">
+                        <label class="form-label-modern">About Me</label>
+                        <textarea class="form-control-modern" rows="3">I am a passionate investor interested in the Indian stock market.</textarea>
+                    </div>
+                    <button type="submit" class="btn-modern btn-primary-modern">Update Profile</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
